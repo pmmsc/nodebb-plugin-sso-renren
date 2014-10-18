@@ -1,2 +1,0 @@
-nodebb-plugin-sso-renren
-========================
