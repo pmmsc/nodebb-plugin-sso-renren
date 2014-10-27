@@ -27,17 +27,21 @@
                 callbackURL: module.parent.require('nconf').get('url') + '/auth/renren/callback'
             },function(token, tokenSecret, profile, done) {
 
-                    console.log(token);
-                    console.log(tokenSecret);
-                    console.log(profile);
+
 
                 var email = ''
                 if(profile.emails && profile.emails.length){
                     email = profile.emails[0].value
                 }
-                var picture = profile.headurl;
-                if(profile._json.headurl){
-                    picture = profile._json.headurl;
+                var picture = '';
+                if(profile._json.avatar[3].url){
+                    picture = profile._json.avatar[3].url;
+                }
+                if(profile._json.avatar[2].url){
+                    picture = profile._json.avatar[2].url;
+                }
+                if(profile._json.avatar[1].url){
+                    picture = profile._json.avatar[1].url;
                 }
 
                 RenRen.login(profile.id, profile.name, email, picture, function(err, user) {
@@ -52,8 +56,7 @@
                 name: 'renren',
                 url: '/auth/renren',
                 callbackURL: '/auth/renren/callback',
-                icon: 'renren',
-                scope: 'user:email'
+                icon: 'renren'
             });
         }
 
@@ -61,7 +64,7 @@
     };
 
     RenRen.login = function(renrenID, username, email, picture, callback) {
-        console.log("renrenID=" + renrenID + ", username=" + username);
+
         if (!email) {
             email = username + '@users.noreply.renren.com';
         }
@@ -80,6 +83,9 @@
                 // New User
                 var success = function(uid) {
                     User.setUserField(uid, 'renrenid', renrenID);
+                    User.setUserField(uid, 'picture', picture);
+                    User.setUserField(uid, 'gravatarpicture', picture);
+                    User.setUserField(uid, 'uploadedpicture', picture);
                     db.setObjectField('renrenid:renrenid', renrenID, uid);
                     callback(null, {
                         uid: uid
