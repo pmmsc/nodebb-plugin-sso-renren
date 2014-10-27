@@ -26,5 +26,5 @@
   "dependencies": {
     "passport-renren": "~0.1.3"
   },
-  "readme": "# NodeBB Plugin SSO renren\n\nNodeBB Plugin that allows users to login/register via their renren account.\n\n## Installation\n\n    npm install nodebb-plugin-sso-renren\n\nPlease config callback address to your nodebb url\n",
+  "readme": "# NodeBB Plugin SSO renren\n\nNodeBB Plugin that allows users to login/register via their renren account.\n\n## Installation\n\n    npm install nodebb-plugin-sso-renren\n\nPlease config callback address to your nodebb url\n"
 }
